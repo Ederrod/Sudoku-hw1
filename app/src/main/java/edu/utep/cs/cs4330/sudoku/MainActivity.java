@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import edu.utep.cs.cs4330.sudoku.model.Board;
+import edu.utep.cs.cs4330.sudoku.model.Square;
 
 /**
  * HW1 template for developing an app to play simple Sudoku games.
@@ -91,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
     /** Callback to be invoked when the new button is tapped. */
     public void newClicked(View view) {
-        // WRITE YOUR CODE HERE ...
         if(!board.gameInProgress()) return;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Game in progress!");
@@ -116,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-        //
     }
 
     /** Callback to be invoked when a number button is tapped.
@@ -125,11 +125,11 @@ public class MainActivity extends AppCompatActivity {
      *          or 0 for the delete button.
      */
     public void numberClicked(int n) {
-        // WRITE YOUR CODE HERE ...
-        if(boardView.selectedY == -1 && boardView.selectedX == -1) return;
-        
-        int x = boardView.selectedX;
-        int y = boardView.selectedY;
+        Square selectedSquare = boardView.selectedSquare;
+        if(selectedSquare == null) return;
+
+        int x = selectedSquare.getX();
+        int y = selectedSquare.getY();
 
         if(!board.validateRow(y,n)) {
             toast(String.format("Row already contains %d!",n));
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if(x != -1 && y != -1) {
-            board.setSquareValue(boardView.selectedX, boardView.selectedY, n);
+            board.setSquareValue(x, y, n);
         }
         boardView.invalidate();
         //
@@ -153,15 +153,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Callback to be invoked when a square is selected in the board view.
      *
-     * @param x 0-based column index of the selected square.
-     * @param x 0-based row index of the selected square.
+     * @param
      */
-    private void squareSelected(int x, int y) {
-        // WRITE YOUR CODE HERE ...
-        boardView.selectedX = x;
-        boardView.selectedY = y;
+    private void squareSelected(Square square) {
+        boardView.selectedSquare = square;
         boardView.invalidate();
-        //
     }
 
     /** Show a toast message. */

@@ -11,10 +11,13 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import edu.utep.cs.cs4330.sudoku.model.Board;
+import edu.utep.cs.cs4330.sudoku.model.Square;
 
 /**
  * A special view class to display a Sudoku board modeled by the
@@ -30,9 +33,8 @@ public class BoardView extends View {
     public interface SelectionListener {
 
         /** Called when a square of the board is selected by tapping.
-         * @param x 0-based column index of the selected square.
-         * @param y 0-based row index of the selected square. */
-        void onSelection(int x, int y);
+         * */
+        void onSelection(Square square);
     }
 
     /** Listeners to be notified when a square is selected. */
@@ -54,8 +56,8 @@ public class BoardView extends View {
     /** Translation of screen coordinates to display the grid at the center. */
     private float transY;
 
-    public int selectedX;
-    public int selectedY;
+    /** Current selected square. */
+    public Square selectedSquare;
 
     /** Paint to draw the background of the grid. */
     private final Paint boardPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -87,8 +89,6 @@ public class BoardView extends View {
     public void setBoard(Board board) {
         this.board = board;
         boardSize = board.size;
-        selectedX = -1;
-        selectedY = -1;
     }
 
     /** Draw a 2-D graphics representation of the associated board. */
@@ -109,8 +109,9 @@ public class BoardView extends View {
         Paint p = new Paint();
         p.setColor(Color.rgb(154, 205, 50));
         p.setAlpha(60);
-        float x = selectedX * lineGap();
-        float y = selectedY * lineGap();
+        if(selectedSquare == null) return;
+        float x = selectedSquare.getX() * lineGap();
+        float y = selectedSquare.getY() * lineGap();
         canvas.drawRect(x, y, x + lineGap(), y + lineGap(), p);
     }
 
@@ -149,20 +150,20 @@ public class BoardView extends View {
         Paint dark = new Paint();
         dark.setColor(Color.rgb(202, 187, 146));
         dark.setTextSize(100);
-        for(int i = 0; i < boardSize; i++) {
-            for(int j = 0; j < boardSize; j++) {
-                float x = j * lineGap() + squareSize/4;
-                float y = ((i * lineGap()) + lineGap());
-                if(board.grid[i][j] == 0) {
-                    canvas.drawText("", x, y - 24,dark);
-                    continue;
-                }
-                if(board.grid[i][j] != -1) {
-                    canvas.drawText(board.grid[i][j]+"", x, y - 24,dark);
-                }
+
+        Collection<Square> squareCollection = board.getSquares();
+
+        for(Square square : squareCollection) {
+            float x = square.getX() * lineGap() + squareSize/4;
+            float y = ((square.getY() * lineGap()) + lineGap());
+
+            if(square.getValue() == -1 || square.getValue() == 0) {
+                canvas.drawText("", x,y-24,dark);
+            }
+            else {
+                canvas.drawText(square.getValue() + "", x, y-24, dark);
             }
         }
-        //
     }
 
     /** Overridden here to detect tapping on the board and
@@ -177,7 +178,16 @@ public class BoardView extends View {
                 int xy = locateSquare(event.getX(), event.getY());
                 if (xy >= 0) {
                     // xy encoded as: x * 100 + y
-                    notifySelection(xy / 100, xy % 100);
+                    int x = xy / 100;
+                    int y = xy % 100;
+                    Collection<Square> squares = board.getSquares();
+                    Square selectedSquare = null;
+                    for(Square square : squares) {
+                        if(square.getX() == x && square.getY() == y) {
+                            selectedSquare = square;
+                        }
+                    }
+                    notifySelection(selectedSquare);
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
@@ -245,13 +255,10 @@ public class BoardView extends View {
 
     /** Notify a square selection to all registered listeners.
      *
-     * @param x 0-based column index of the selected square
-     * @param y 0-based row index of the selected square
      */
-    private void notifySelection(int x, int y) {
+    private void notifySelection(Square square) {
         for (SelectionListener listener: listeners) {
-            listener.onSelection(x, y);
+            listener.onSelection(square);
         }
     }
-
 }
