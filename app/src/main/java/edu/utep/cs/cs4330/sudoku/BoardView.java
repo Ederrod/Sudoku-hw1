@@ -127,13 +127,14 @@ public class BoardView extends View {
         thick.setColor(Color.rgb(202, 187, 146));
         thick.setStrokeWidth(10);
 
+        double hard = Math.sqrt(boardSize);
         float diff = (float) maxCoord() / boardSize;
         for(float x = 0; x < maxCoord(); x += diff) {
             for(float y = 0; y < maxCoord(); y += diff) {
-                if(x%Math.floor(maxCoord() / 3) == 0 && x != 0) {
+                if(x%Math.floor(maxCoord() / hard) == 0 && x != 0) {
                     canvas.drawLine(x,y,x, y + diff, thick); // left
                 }
-                if(y%Math.floor(maxCoord() / 3) == 0 && y != 0) {
+                if(y%Math.floor(maxCoord() / hard) == 0 && y != 0) {
                     canvas.drawLine(x,y,x + diff, y, thick);// top
                 }
                 canvas.drawLine(x,y,x, y + diff, dark); // left
@@ -149,19 +150,28 @@ public class BoardView extends View {
     private void drawSquares(Canvas canvas) {
         Paint dark = new Paint();
         dark.setColor(Color.rgb(202, 187, 146));
-        dark.setTextSize(100);
+
 
         Collection<Square> squareCollection = board.getSquares();
-
+        float center = boardSize * (float) Math.sqrt(boardSize);
         for(Square square : squareCollection) {
-            float x = square.getX() * lineGap() + squareSize/4;
-            float y = ((square.getY() * lineGap()) + lineGap());
+            float x;
+            float y;
+            if(boardSize == 9) {
+                dark.setTextSize(100);
+                x = square.getX() * lineGap() + squareSize / 4;
+                y = ((square.getY() * lineGap()) + lineGap());
+            }else {
+                dark.setTextSize(175);
+                x = square.getX() * (lineGap()) + squareSize/(float)3.25;
+                y = ((square.getY() * lineGap()) + lineGap()/(float)1.25);
+            }
 
             if(square.getValue() == -1 || square.getValue() == 0) {
-                canvas.drawText("", x,y-24,dark);
+                canvas.drawText("", x,y-center,dark);
             }
             else {
-                canvas.drawText(square.getValue() + "", x, y-24, dark);
+                canvas.drawText(square.getValue() + "", x, y-center, dark);
             }
         }
     }

@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_title_board_config"
+        android:key="pref_board_configuration">
+        <ListPreference
+            android:entries="@array/pref_board_sizes"
+            android:entryValues="@array/pref_board_size_values"
+            android:defaultValue="9"
+            android:key="board_size"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="Select Board Size"/>
+        <ListPreference
+            android:entries="@array/pref_board_level"
+            android:entryValues="@array/board_level_values"
+            android:defaultValue="2"
+            android:key="board_level"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="Select Level"/>
+    </PreferenceCategory>
+</PreferenceScreen>

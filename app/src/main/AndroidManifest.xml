@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.utep.cs.cs4330.sudoku">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +18,23 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SudokuSettingsActivity"
+            android:label="@string/title_activity_sudoku_settings"
+            android:parentActivityName=".SudokuBoardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.utep.cs.cs4330.sudoku.SudokuBoardActivity" />
+        </activity>
+        <activity
+            android:name=".SudokuBoardActivity"
+            android:label="@string/title_activity_sudoku_board"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.utep.cs.cs4330.sudoku.MainActivity" />
         </activity>
     </application>
 

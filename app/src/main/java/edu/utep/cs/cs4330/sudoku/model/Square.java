@@ -1,7 +1,8 @@
 package edu.utep.cs.cs4330.sudoku.model;
 
 /**
- * Created by ederr on 3/4/2018.
+ * Representation of cell that makes up the Sudoku board.
+ * @author Eder Rodriguez
  */
 
 public class Square {

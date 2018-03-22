@@ -6,140 +6,69 @@
     android:layout_height="match_parent"
     tools:context="edu.utep.cs.cs4330.sudoku.MainActivity">
 
-    <Button
-        android:id="@+id/new_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="newClicked"
-        android:text="New"
-        android:textColor="@android:color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <edu.utep.cs.cs4330.sudoku.BoardView
-        android:id="@+id/boardView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/n0"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_button" />
-
-    <Button
-        android:id="@+id/n5"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:text="5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/n1"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        android:text="1"
-        app:layout_constraintRight_toLeftOf="@+id/n2"
-        app:layout_constraintTop_toTopOf="@+id/n2" />
-
-    <Button
-        android:id="@+id/n2"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        android:text="2"
-        app:layout_constraintRight_toLeftOf="@+id/n3"
-        app:layout_constraintTop_toTopOf="@+id/n3" />
-
-    <Button
-        android:id="@+id/n3"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:text="3"
-        app:layout_constraintRight_toLeftOf="@+id/n4"
-        app:layout_constraintTop_toTopOf="@+id/n4" />
-
-    <Button
-        android:id="@+id/n4"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:text="4"
-        app:layout_constraintRight_toLeftOf="@+id/n5"
-        app:layout_constraintTop_toTopOf="@+id/n5" />
-
-    <Button
-        android:id="@+id/n6"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:text="6"
-        app:layout_constraintLeft_toRightOf="@+id/n5"
-        app:layout_constraintTop_toTopOf="@+id/n5" />
-
-    <Button
-        android:id="@+id/n7"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        android:text="7"
-        app:layout_constraintLeft_toRightOf="@+id/n6"
-        app:layout_constraintTop_toTopOf="@+id/n6" />
-
-    <Button
-        android:id="@+id/n8"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        android:text="8"
-        app:layout_constraintLeft_toRightOf="@+id/n7"
-        app:layout_constraintTop_toTopOf="@+id/n7" />
-
-    <Button
-        android:id="@+id/n9"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        android:text="9"
-        app:layout_constraintLeft_toRightOf="@+id/n8"
-        app:layout_constraintTop_toTopOf="@+id/n8" />
-
-    <ImageButton
-        android:id="@+id/n0"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="299dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/n5"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/progressButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Progress"
-        app:layout_constraintBottom_toTopOf="@+id/boardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Board Level"
+            android:textAlignment="center" />
+
+        <RadioButton
+            android:id="@+id/buttonEasy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Easy" />
+
+        <RadioButton
+            android:id="@+id/buttonMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Medium" />
+
+        <RadioButton
+            android:id="@+id/buttonHard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hard" />
+
+        <TextView
+            android:id="@+id/textViewBoardSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Board Size"
+            android:textAlignment="center" />
+
+        <RadioButton
+            android:id="@+id/buttonSize4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4x4" />
+
+        <RadioButton
+            android:id="@+id/buttonSize9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9x9" />
+
+        <Button
+            android:id="@+id/buttonStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start" />
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>
